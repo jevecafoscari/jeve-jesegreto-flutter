@@ -7,12 +7,15 @@ part 'secret_model.g.dart';
 class SecretModel {
   final String id;
   final DateTime dateTime;
-  final AuthorModel author;
+  AuthorModel author;
 
-  const SecretModel({
+  final String body;
+
+  SecretModel({
     required this.id,
     required this.dateTime,
     required this.author,
+    required this.body,
   });
 
   factory SecretModel.fromJson(Map<String, dynamic> json) => _$SecretModelFromJson(json);
