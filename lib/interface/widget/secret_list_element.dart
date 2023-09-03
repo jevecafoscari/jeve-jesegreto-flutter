@@ -25,18 +25,18 @@ class SecretListElement extends StatelessWidget {
 
 
     return Card(
-      color: color.withOpacity(0.2),
+      color: color,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("$sex di ${secret.author.age} anni", style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text("$sex di ${secret.author.age} anni", style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.white)),
             SizedBox(height: 16.0),
-            Text(secret.body),
+            Text(secret.body, style: TextStyle(color: Colors.white)),
             SizedBox(height: 8.0),
             // Date time in format: 2021-10-10 10:10:10
-            Text(secret.dateTime.toString()),
+            Text(secret.dateTime.toString(), style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

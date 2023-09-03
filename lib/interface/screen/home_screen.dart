@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     TextFormField(
-                      validator: ValidatorHelper.requiredValidator,
+                      validator: ValidatorHelper.integerValidator,
                       decoration: InputDecoration(
                         hintText: "Età",
                       ),
