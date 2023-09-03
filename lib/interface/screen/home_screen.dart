@@ -7,6 +7,7 @@ import 'package:jeve_jesegreto_flutter/models/author_model.dart';
 import 'package:jeve_jesegreto_flutter/models/secret_model.dart';
 import 'package:jeve_jesegreto_flutter/references.dart';
 import 'package:jeve_jesegreto_flutter/resources/helper/secret_helper.dart';
+import 'package:jeve_jesegreto_flutter/resources/helper/validator_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String route = "/homeScreen";
@@ -18,15 +19,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Image.asset(Assets.assetsLogoJeitaly),
-        ),
-      ),
+      appBar: AppBar(title: Text(References.appName)),
       body: buildBody(),
       floatingActionButton: buildFloatingActionButton(),
     );
@@ -40,7 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
             );
 
     return FirestoreListView<SecretModel>(
+      controller: scrollController,
       query: secretsQuery,
+      padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, snapshot) {
         final SecretModel secretModel = snapshot.data();
         return SecretListElement(secret: secretModel);
@@ -58,23 +58,29 @@ class _HomeScreenState extends State<HomeScreen> {
             final GlobalKey<FormState> formKey = GlobalKey<FormState>();
             String? secret;
             String? age;
-            Sex? sex;
+            Sex sex = Sex.male;
 
             return AlertDialog(
               title: Text("Inserisci un segreto"),
               content: Form(
                 key: formKey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
+                      validator: ValidatorHelper.requiredValidator,
                       decoration: InputDecoration(
                         hintText: "Testo del segreto",
                       ),
+                      minLines: 4,
+                      maxLines: 8,
+                      maxLength: 280,
                       onChanged: (final String value) {
                         secret = value;
                       },
                     ),
                     TextFormField(
+                      validator: ValidatorHelper.requiredValidator,
                       decoration: InputDecoration(
                         hintText: "Età",
                       ),
@@ -85,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     // Sex DropdownButtonFormField
                     DropdownButtonFormField<Sex>(
+                      decoration: InputDecoration(label: Text("Sesso")),
                       items: Sex.values.map((final Sex sex) {
                         late String label;
 
@@ -97,9 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             label = "Preferisco non rispondere";
                         }
 
-                        return DropdownMenuItem<Sex>(child: Text(label));
+                        return DropdownMenuItem<Sex>(value: sex, child: Text(label));
                       }).toList(),
-                      onChanged: (final Sex? selectedSex) => sex = selectedSex,
+                      onChanged: (final Sex? selectedSex) => sex = selectedSex ?? sex,
                     ),
                   ],
                 ),
@@ -140,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
               content: Text("Segreto inserito con successo"),
             ),
           );
+          scrollController.animateTo(0, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
 
           setState(() {});
         }

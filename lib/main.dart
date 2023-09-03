@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:jeve_jesegreto_flutter/firebase_options.dart';
 import 'package:jeve_jesegreto_flutter/interface/screen/home_screen.dart';
 import 'package:jeve_jesegreto_flutter/interface/screen/splash_screen.dart';
 import 'package:jeve_jesegreto_flutter/references.dart';
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const JESegreto());
 }
 
@@ -18,6 +24,7 @@ class JESegreto extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      initialRoute: SplashScreen.route,
       routes: <String, Widget Function(BuildContext)>{
         HomeScreen.route: (final BuildContext context) => const HomeScreen(),
         SplashScreen.route: (final BuildContext context) => const SplashScreen(),

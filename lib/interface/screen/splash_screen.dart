@@ -36,11 +36,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    """
-                  Per me si va ne'l network dolente,
-                  [...]
-                  per me si va tra la perduta gente.
-                  """,
+                    """Per me si va ne'l network dolente,\n[...]\nper me si va tra la perduta JEnte.""",
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
