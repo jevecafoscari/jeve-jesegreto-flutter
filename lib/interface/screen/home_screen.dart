@@ -8,6 +8,7 @@ import 'package:jeve_jesegreto_flutter/models/secret_model.dart';
 import 'package:jeve_jesegreto_flutter/references.dart';
 import 'package:jeve_jesegreto_flutter/resources/helper/secret_helper.dart';
 import 'package:jeve_jesegreto_flutter/resources/helper/validator_helper.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String route = "/homeScreen";
@@ -37,14 +38,41 @@ class _HomeScreenState extends State<HomeScreen> {
               toFirestore: (final SecretModel secret, _) => secret.toJson(),
             );
 
-    return FirestoreListView<SecretModel>(
-      controller: scrollController,
-      query: secretsQuery,
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, snapshot) {
-        final SecretModel secretModel = snapshot.data();
-        return SecretListElement(secret: secretModel);
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: FirestoreListView<SecretModel>(
+            controller: scrollController,
+            query: secretsQuery,
+            padding: const EdgeInsets.all(16.0),
+            itemBuilder: (context, snapshot) {
+              final SecretModel secretModel = snapshot.data();
+              return SecretListElement(secret: secretModel);
+            },
+          ),
+        ),
+        Material(
+          elevation: 20,
+          child: Container(
+            color: Theme.of(context).canvasColor,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () => launchUrlString("https://instagram.com/emiliodallatorre"),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Proudly brought to you by Emilio",
+                    style: TextStyle(decoration: TextDecoration.underline),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
