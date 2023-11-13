@@ -10,12 +10,14 @@ class SecretModel {
   AuthorModel author;
 
   final String body;
+  String? attachmentUrl;
 
   SecretModel({
     required this.id,
     required this.dateTime,
     required this.author,
     required this.body,
+    this.attachmentUrl,
   });
 
   factory SecretModel.fromJson(Map<String, dynamic> json) => _$SecretModelFromJson(json);
