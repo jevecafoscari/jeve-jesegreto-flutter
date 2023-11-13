@@ -11,6 +11,7 @@ SecretModel _$SecretModelFromJson(Map<String, dynamic> json) => SecretModel(
       dateTime: DateTime.parse(json['dateTime'] as String),
       author: AuthorModel.fromJson(json['author'] as Map<String, dynamic>),
       body: json['body'] as String,
+      attachmentUrl: json['attachmentUrl'] as String?,
     );
 
 Map<String, dynamic> _$SecretModelToJson(SecretModel instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$SecretModelToJson(SecretModel instance) =>
       'dateTime': instance.dateTime.toIso8601String(),
       'author': instance.author.toJson(),
       'body': instance.body,
+      'attachmentUrl': instance.attachmentUrl,
     };

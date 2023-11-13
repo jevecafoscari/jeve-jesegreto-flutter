@@ -22,7 +22,7 @@ class SecretHelper {
   }
 
   Future<String> uploadSecretAttachment(final Uint8List attachment, final String secretId) async {
-    final Reference reference = FirebaseStorage.instance.ref("${References.secretsCollection}/$secretId");
+    final Reference reference = FirebaseStorage.instance.ref("${References.secretsCollection}/$secretId.png");
 
     await reference.putData(attachment);
 

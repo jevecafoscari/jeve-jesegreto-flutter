@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:jeve_jesegreto_flutter/firebase_options.dart';
 import 'package:jeve_jesegreto_flutter/interface/screen/home_screen.dart';
 import 'package:jeve_jesegreto_flutter/interface/screen/splash_screen.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // await initializeDateFormatting('it_IT', "");
 
   runApp(const JESegreto());
 }
