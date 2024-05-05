@@ -6,7 +6,7 @@ class References {
   static const String secretsCollection = "secrets";
 
   static DateFormat secretDateFormat = DateFormat(
-    "dd MMMM - hh:mm",
+    "dd MMMM - HH:mm",
     // "it_IT",
   );
 }
