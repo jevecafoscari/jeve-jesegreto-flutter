@@ -191,20 +191,22 @@ class _HomeScreenState extends State<HomeScreen> {
         );
 
         if (secret != null) {
-          await SecretHelper().createSecret(
+          await SecretHelper()
+              .createSecret(
             secret,
             secret.author,
             attachment,
-          );
+          )
+              .whenComplete(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Segreto inserito con successo"),
+              ),
+            );
+            scrollController.animateTo(0, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Segreto inserito con successo"),
-            ),
-          );
-          scrollController.animateTo(0, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-
-          setState(() {});
+            setState(() {});
+          });
         }
       },
     );
